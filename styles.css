@@ -1,0 +1,116 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-family: 'Hind Siliguri', sans-serif;
+    font-family: 'Lato', sans-serif;
+    font-size: 100%;
+    color: black;
+    scroll-behavior: smooth;
+}
+
+/* Header */
+
+.navbar.cabecera{
+    background-color: rgb(69, 69, 73);
+}
+
+nav img{
+    width: 50%;
+}
+
+nav .opciones{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.compra{
+    color:rgb(37, 201, 37);
+}
+
+.carousel-item{
+max-height: 650px;
+}
+
+.imagen1{
+    display:flex;
+    flex-direction: column;
+}
+
+.carousel-item img {
+    filter: brightness(0.5);
+}
+
+/* Tarjeta central */
+
+.tarjeta .card{
+    background-color: rgb(69, 69, 73);
+    border-radius: 0%;
+    width: 100% !important;
+}
+
+#floatingTextarea{
+    height: 120px;
+}
+
+/*Formulario*/
+
+.punteado{
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+.formulario{
+    max-width: 700px;
+}
+.boton-form{
+    background-color: rgb(119, 201, 37);
+}
+/* Barra inferior */
+
+.blue{
+    background: rgb(10,42,69);
+    background: linear-gradient(90deg, rgba(10,42,69,1) 10%, rgba(34,75,110,1) 90%);
+}
+
+@media screen and (max-width: 767px){
+    .tarjetas{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;    
+    }
+}
+
+/*HTML Tickets*/
+
+.tarjetas-compra{
+    border: solid 2px #cacaca
+}
+
+.estudiante{
+    border: solid 2px #119099
+}
+
+.trainee{
+    border: solid 2px #6ccdd4
+}
+
+.junior{
+    border: solid 2px #ecd92b
+}
+
+#resumen{
+    background-color: #b1e2e6;
+    color: #056168
+}
+
+@media screen and (max-width: 767px){
+    .trainee{
+   margin-left: 0 !important;
+   margin-right: 0 !important;
+    }
+}
