@@ -46,84 +46,59 @@
             </div>
         </nav>
 </header>
+    <div class="container" style="height: 50px;"></div>
+
 
 
 
 <?php
+
 $servidor = "localhost";
 $usuario = "root";
 $clave = "Arg@1234";
 $baseDatos = "tickets";
 
 $conexion = mysqli_connect($servidor, $usuario, $clave, $baseDatos);
+
 if (!$conexion) {
     die("Error al conectar a la base de datos: " . mysqli_connect_error());
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = mysqli_real_escape_string($conexion, $_POST["nombre"]);
-    $apellido = mysqli_real_escape_string($conexion, $_POST["apellido"]);
-    $email = mysqli_real_escape_string($conexion, $_POST["email"]);
-    $cantidad = mysqli_real_escape_string($conexion, $_POST["cantidad"]);
-    $categoria = mysqli_real_escape_string($conexion, $_POST["categoria"]);
 
-    $sql = "INSERT INTO tickets (nombre, apellido, email, cantidad, categoria) VALUES ('$nombre', '$apellido', '$email', '$cantidad', '$categoria')";
-    if (mysqli_query($conexion, $sql)) {
-        header("Location: " . $_SERVER["PHP_SELF"]);
-        exit;
+// Verificar si se recibió el parámetro "id" en la URL
+if(isset($_GET['id'])) {
+    // Obtener el ID del registro a eliminar
+    $id = $_GET['id'];
+
+    // Realizar la conexión a la base de datos
+    $conexion = mysqli_connect($servidor, $usuario, $clave, $baseDatos);
+
+    // Verificar la conexión
+    if (!$conexion) {
+        die("Error al conectar a la base de datos: " . mysqli_connect_error());
+    }
+
+    // Construir la consulta para eliminar el registro
+    $consulta = "DELETE FROM tickets WHERE id = '$id'";
+
+    // Ejecutar la consulta
+    if (mysqli_query($conexion, $consulta)) {
+        // Redireccionar a la página principal o a otra página de tu elección después de eliminar el registro
+        header("Location: datosCompra.php");
+        exit();
     } else {
-        echo "Error al guardar los datos: " . mysqli_error($conexion);
-    }
-}
-
-$sql = "SELECT * FROM tickets";
-$consulta = mysqli_query($conexion, $sql);
-
-if (mysqli_num_rows($consulta) > 0) {
-    echo '<main>
-            <div class="container col-lg-6 text-center my-3">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Mail</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Categoría</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>';
-
-    while ($fila = mysqli_fetch_assoc($consulta)) {
-        echo '<tr>
-                <td>' . $fila['id'] . '</td>
-                <td>' . $fila['nombre'] . '</td>
-                <td>' . $fila['apellido'] . '</td>
-                <td>' . $fila['email'] . '</td>
-                <td>' . $fila['cantidad'] . '</td>
-                <td>' . $fila['categoria'] . '</td>
-                <td>
-                    <a href="editar.php?id=' . $fila['id'] . '" class="btn-info">Editar</a>
-                    <a href="borrar.php?id=' . $fila['id'] . '" class="btn-danger">Borrar</a>
-                </td>
-            </tr>';
+        echo "Error al eliminar el registro: " . mysqli_error($conexion);
     }
 
-    echo '</tbody>
-        </table>
-    </div>
-</main>';
+    // Cerrar la conexión a la base de datos
+    mysqli_close($conexion);
 } else {
-    echo "No hay datos en la base de datos";
+    echo "No se proporcionó el ID del registro a eliminar";
 }
-
-
-
-mysqli_close($conexion);
 ?>
 
+
+<div class="container" style="height: 50px;"></div>
 
 <!--BARRA INFERIOR-->
 <footer class="fixed-bottom">
@@ -147,7 +122,7 @@ mysqli_close($conexion);
             <a class="nav-link text-white" href="#">Privacidad</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="datosCompra.php">Tickets</a>
+            <a class="nav-link text-white" href="./tickets.php">Tickets</a>
         </li>
     </ul>
 </footer>
